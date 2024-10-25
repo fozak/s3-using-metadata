@@ -1,4 +1,4 @@
-// Function to initialize AWS SDK with credentials
+// Function to initialize AWS SDK with credentials from local storage
 function initializeAWS() {
     const accessKey = localStorage.getItem('aws_access_key');
     const secretKey = localStorage.getItem('aws_secret_key');
