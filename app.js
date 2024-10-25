@@ -2,7 +2,7 @@
 function initializeAWS() {
     const accessKey = localStorage.getItem('aws_access_key');
     const secretKey = localStorage.getItem('aws_secret_key');
-    const region = 'YOUR_REGION'; // Replace with your region
+    const region = 'us-east-1'; // Replace with your region
 
     if (accessKey && secretKey) {
         AWS.config.update({
