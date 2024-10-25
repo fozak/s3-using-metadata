@@ -25,23 +25,25 @@
             padding: 10px;
             border-bottom: 1px solid #ccc;
         }
-        .user-message {
-            background-color: white;
-            color: black;
+        .message {
             padding: 10px;
             border-radius: 5px;
             margin: 5px 0;
-            max-width: 80%;
-            align-self: flex-end;
+            position: relative;
+            width: 100%; /* Make messages full width */
+        }
+        .user-message {
+            background-color: white; /* White background for user messages */
+            color: black;
         }
         .ai-message {
-            background-color: #f0f0f0;
+            background-color: white; /* White background for AI messages */
             color: black;
-            padding: 10px;
-            border-radius: 5px;
+        }
+        .separator {
+            height: 1px;
+            background-color: #ccc;
             margin: 5px 0;
-            max-width: 80%;
-            align-self: flex-start;
         }
         .user-input {
             width: calc(100% - 100px);
@@ -60,15 +62,6 @@
         }
         button:hover {
             background-color: #0056b3;
-        }
-        pre {
-            background-color: #f8f9fa;
-            padding: 10px;
-            border-radius: 5px;
-            overflow-x: auto;
-        }
-        code {
-            font-family: monospace;
         }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/2.1.3/marked.min.js"></script>
@@ -94,7 +87,7 @@
             const requestBody = {
                 model: model,
                 messages: [{ role: 'user', content: prompt }],
-                max_tokens: 2000,
+                max_tokens: 100,
             };
 
             try {
@@ -145,18 +138,28 @@
 
             const chatBox = document.getElementById('chat-box');
             const userMessageDiv = document.createElement('div');
-            userMessageDiv.className = 'user-message';
+            userMessageDiv.className = 'message user-message';
             userMessageDiv.innerText = userMessage;
             chatBox.appendChild(userMessageDiv);
+
+            // Add a separator after user message
+            const userSeparator = document.createElement('div');
+            userSeparator.className = 'separator';
+            chatBox.appendChild(userSeparator);
 
             userInput.value = '';
 
             const aiResponse = await callOpenAI(userMessage);
 
             const aiMessageDiv = document.createElement('div');
-            aiMessageDiv.className = 'ai-message';
+            aiMessageDiv.className = 'message ai-message';
             aiMessageDiv.innerHTML = marked.parse(aiResponse); // Use marked.js to parse markdown
             chatBox.appendChild(aiMessageDiv);
+
+            // Add a separator after AI message
+            const aiSeparator = document.createElement('div');
+            aiSeparator.className = 'separator';
+            chatBox.appendChild(aiSeparator);
 
             chatBox.scrollTop = chatBox.scrollHeight;
         });
