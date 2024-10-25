@@ -31,7 +31,7 @@ function promptForCredentials() {
     }
 }
 
-// Initialize AWS SDK
+// Initialize AWS SDK js
 initializeAWS();
 
 const s3 = new AWS.S3();
